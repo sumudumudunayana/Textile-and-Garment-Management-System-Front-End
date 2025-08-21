@@ -1,0 +1,134 @@
+<div class="layout" [class.sidebar-collapsed]="!sidebarOpen()">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">S</div>
+      <div class="brand-text">
+        <strong>SewSoft</strong>
+        <small>Garments Pvt Ltd</small>
+      </div>
+      <button class="collapse" (click)="toggleSidebar()" aria-label="Toggle sidebar">≡</button>
+    </div>
+
+    <nav class="nav">
+      <a class="nav-item active">📊 Dashboard</a>
+      <a class="nav-item">👥 Customers</a>
+      <a class="nav-item">🧵 Products & Orders</a>
+      <a class="nav-item">🛒 Sales Orders</a>
+      <a class="nav-item">🧑‍💼 Employees & Attendance</a>
+      <a class="nav-item">📦 Inventory</a>
+      <a class="nav-item">📑 Reports</a>
+      <a class="nav-item">⚙️ Settings</a>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+    <!-- Topbar -->
+    <header class="topbar">
+      <form class="search" (submit)="$event.preventDefault(); onSearch()">
+        <input type="text" [(ngModel)]="searchQuery" name="q" placeholder="Search customers, products, orders..." />
+        <button type="submit" aria-label="Search">🔍</button>
+      </form>
+      <div class="top-actions">
+        <button class="icon-btn" title="Notifications">🔔</button>
+        <div class="user">Hi, {{ userName }}</div>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <section class="content">
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card" *ngFor="let s of statCards" [attr.data-accent]="s.accent">
+          <div class="stat-icon">{{ s.icon }}</div>
+          <div class="stat-body">
+            <div class="stat-label">{{ s.label }}</div>
+            <div class="stat-value">{{ s.value }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts -->
+      <div class="charts-grid">
+        <!-- Sales Revenue -->
+        <section class="card">
+          <h3>Sales Revenue <small>(LKR ‘000)</small></h3>
+          <svg class="line-chart" viewBox="0 0 300 120" preserveAspectRatio="none" aria-label="Monthly revenue line chart">
+            <defs>
+              <linearGradient id="revFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="var(--c-indigo)" stop-opacity="0.18"/>
+                <stop offset="100%" stop-color="var(--c-indigo)" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <!-- fill under line -->
+            <path [attr.d]="revenuePath() + ' L 300,120 L 0,120 Z'" fill="url(#revFill)"></path>
+            <!-- line -->
+            <path [attr.d]="revenuePath()" fill="none" stroke="var(--c-indigo)" stroke-width="2.5" stroke-linecap="round"></path>
+          </svg>
+          <div class="axis">
+            <span *ngFor="let m of months.slice(0,6)">{{ m }}</span>
+          </div>
+        </section>
+
+        <!-- Orders Status (Donut) -->
+        <section class="card">
+          <h3>Tailoring Orders Status</h3>
+          <div class="donut-wrap">
+            <div class="donut" [style.background]="donutGradient()">
+              <div class="donut-hole">
+                <div class="donut-label">{{ orderStatus().delivered }}%</div>
+                <div class="donut-sub">Delivered</div>
+              </div>
+            </div>
+            <ul class="legend">
+              <li><span class="dot green"></span>Delivered ({{ orderStatus().delivered }}%)</li>
+              <li><span class="dot blue"></span>Processing ({{ orderStatus().processing }}%)</li>
+              <li><span class="dot orange"></span>Pending ({{ orderStatus().pending }}%)</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Attendance -->
+        <section class="card">
+          <h3>Attendance Overview</h3>
+          <div class="bars">
+            <div class="bar"
+                 *ngFor="let v of attendance(); let i = index"
+                 [style.height.%]="(v / maxAttendance()) * 100"
+                 [attr.aria-label]="'Day ' + (i+1) + ': ' + v">
+              <span class="bar-value">{{ v }}</span>
+            </div>
+          </div>
+          <div class="axis days">
+            <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+          </div>
+        </section>
+      </div>
+
+      <!-- Activity + Shortcuts -->
+      <div class="lower-grid">
+        <section class="card activity">
+          <h3>Recent Activity</h3>
+          <ul>
+            <li *ngFor="let a of activities">
+              <span class="act-ic">{{ a.icon }}</span>
+              <span class="act-text">{{ a.text }}</span>
+              <span class="act-time">{{ a.time }}</span>
+            </li>
+          </ul>
+        </section>
+
+        <section class="card shortcuts">
+          <h3>Shortcuts</h3>
+          <div class="shortcut-grid">
+            <button *ngFor="let s of shortcuts" class="shortcut-btn" type="button">
+              <span class="ic">{{ s.icon }}</span>
+              <span>{{ s.label }}</span>
+            </button>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+</div>
