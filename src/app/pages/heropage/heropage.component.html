@@ -1,0 +1,176 @@
+<!-- HERO -->
+<section class="hero">
+  <!-- Background decoration -->
+  <div class="hero__bg">
+    <!-- Optional photo; replace with your asset -->
+    <div class="hero__bg-image"></div>
+    <!-- Subtle textile pattern overlay -->
+    <div class="hero__pattern"></div>
+    <div class="hero__scrim"></div>
+  </div>
+
+  <header class="hero__header">
+    <div class="brand">
+      <span class="brand__logo" aria-hidden="true">
+        <!-- Needle & thread icon -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 64 64"
+          class="icon-needle"
+        >
+          <path
+            d="M51 6c-2.8 2.8-9.6 12-16.2 22.1-6.6 10.1-12 19.7-12.7 21.4-.9 2.3 1.5 4.7 3.8 3.8 1.7-.7 11.3-6.1 21.4-12.7C45.9 34.6 55.2 27.8 58 25a4 4 0 1 0-5.7-5.7c-2.1 2.1-7.5 6.1-13.5 10.1C36.9 22.9 40.9 17 43 15c2.4-2.4 5.7-4.6 7.1-6 .8-.8.8-2.1 0-2.9-.8-.8-2.1-.8-2.9 0L46 6z"
+            fill="currentColor"
+          />
+        </svg>
+      </span>
+      <div class="brand__text">
+        <h1 class="brand__title">Textile & Garment Manager</h1>
+        <p class="brand__tagline">
+          From ready-made orders to inventory, streamline your floor & finance.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <div class="hero__content">
+    <div class="hero__copy">
+      <h2 class="hero__headline">
+        Manage Orders. Track Inventory. Deliver On Time.
+      </h2>
+      <p class="hero__sub">
+        A unified workspace for <strong>Ready-Made Orders</strong>,
+        <strong>Tailoring</strong>, and <strong>Stock</strong>—built for busy
+        production teams.
+      </p>
+
+      <div class="hero__actions">
+        <button
+          type="button"
+          class="btn btn-cta"
+          data-bs-toggle="modal"
+          data-bs-target="#Admin-modal"
+        >
+          Get Started
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            class="bi"
+            viewBox="0 0 16 16"
+            aria-hidden="true"
+          >
+            <path
+              fill="currentColor"
+              d="M1 8a.75.75 0 0 1 .75-.75h10.19L8.72 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 1 1-1.06-1.06l3.22-3.22H1.75A.75.75 0 0 1 1 8Z"
+            />
+          </svg>
+        </button>
+
+        <!-- Optional quick links to modules -->
+        <a routerLink="/orders" class="btn btn-secondary">View Orders</a>
+        <a routerLink="/inventory" class="btn btn-outline">Inventory</a>
+      </div>
+
+      <!-- Small stats chips -->
+      <div class="hero__stats">
+        <div class="chip">
+          <span class="chip__label">Lead Time</span>
+          <span class="chip__value">↓ 23%</span>
+        </div>
+        <div class="chip">
+          <span class="chip__label">Stock Accuracy</span>
+          <span class="chip__value">99.2%</span>
+        </div>
+        <div class="chip">
+          <span class="chip__label">On-time Delivery</span>
+          <span class="chip__value">96%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__panel">
+      <!-- Feature cards (quick navigation) -->
+      <div class="card">
+        <div class="card__icon" aria-hidden="true">🧵</div>
+        <h3 class="card__title">Ready-Made Orders</h3>
+        <p class="card__text">
+          Create, update, and track customer orders end-to-end.
+        </p>
+        <a routerLink="/orders" class="card__link">Open</a>
+      </div>
+
+      <div class="card">
+        <div class="card__icon" aria-hidden="true">📦</div>
+        <h3 class="card__title">Inventory</h3>
+        <p class="card__text">
+          Real-time stock for fabrics, trims, and finished goods.
+        </p>
+        <a routerLink="/inventory" class="card__link">Open</a>
+      </div>
+
+      <div class="card">
+        <div class="card__icon" aria-hidden="true">🧑‍🏭</div>
+        <h3 class="card__title">Tailoring</h3>
+        <p class="card__text">
+          Assign jobs and monitor production status at a glance.
+        </p>
+        <a routerLink="/tailoring" class="card__link">Open</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Your existing LOGIN MODAL (kept, just styled better) ===== -->
+<div
+  class="modal fade"
+  id="Admin-modal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="loginModalTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content login">
+      <div class="modal-header border-0">
+        <h5 class="modal-title" id="loginModalTitle">Login as Agent</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          title="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="input-container">
+          <label for="username">Username</label>
+          <input
+            id="username"
+            type="email"
+            [(ngModel)]="username"
+            name="username"
+            placeholder="Enter username"
+            required
+          />
+        </div>
+
+        <div class="input-container">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            [(ngModel)]="password"
+            name="password"
+            placeholder="Enter password"
+            required
+          />
+        </div>
+
+        <button type="submit" class="submit" (click)="login()">Login</button>
+      </div>
+    </div>
+  </div>
+</div>
