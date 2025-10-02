@@ -1,0 +1,197 @@
+@import url("https://fonts.googleapis.com/css2?family=Italianno&display=swap");
+
+.banner {
+  background: linear-gradient(135deg, #00796b, #004d40);
+  width: 100%;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  font-family: "Italianno", cursive;
+  font-size: 50px;
+  font-weight: 500;
+  color: #a7ffeb;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.cards {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 3%;
+  padding: 2%;
+  gap: 2rem;
+  flex-wrap: wrap;
+  perspective: 1000px; /* ADDED: Enables 3D transform effect on child elements */
+}
+
+.card {
+  background-color: #1e2722;
+  border-radius: 15px;
+  box-shadow: 0 8px 15px rgba(0, 121, 107, 0.4);
+  margin: 2%;
+  width: 18rem;
+  cursor: pointer;
+  overflow: hidden;
+  text-align: center;
+  /* UPDATED: Changed transition for a smoother, more dynamic effect */
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card:hover {
+  /* UPDATED: Added rotateX for 3D tilt and adjusted translateY */
+  transform: translateY(-15px) rotateX(5deg) scale(1.05);
+  /* UPDATED: Added a second shadow to create a glow effect */
+  box-shadow: 0 20px 35px rgba(0, 121, 107, 0.6), 0 0 20px rgba(167, 255, 235, 0.4);
+  color: #80cbc4;
+}
+
+.cards img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  transition: transform 0.4s ease; /* ADDED: Smooth transition for the image zoom */
+}
+
+/* ADDED: Zooms the image when the card is hovered */
+.card:hover img {
+  transform: scale(1.1);
+}
+
+.card .card-body h4 {
+  color: #a7ffeb;
+  transition: color 0.3s ease;
+}
+
+.card:hover .card-body h4 {
+  color: #80cbc4;
+}
+
+.form {
+  display: block;
+  padding: 1rem;
+  max-width: 350px;
+  border-radius: 0.5rem;
+  background-color: rgba(0, 77, 64, 0.8);
+  margin: 2rem auto;
+  box-shadow: 0 8px 20px rgba(0, 77, 64, 0.6);
+  color: #a7ffeb;
+}
+
+.txt {
+  color: #a7ffeb;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.75rem;
+  margin-bottom: 1rem;
+  background-color: #00695c;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 77, 64, 0.7),
+    0 4px 6px -2px rgba(0, 77, 64, 0.5);
+}
+
+.modal-content {
+  background-color: #004d40;
+  color: #a7ffeb;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.submit {
+  background-color: #00796b;
+  color: #a7ffeb;
+  padding: 10px 20px;
+  margin: 10px auto;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  display: block;
+  width: fit-content;
+  transition: background-color 0.3s ease;
+}
+
+.submit:hover {
+  background-color: #004d40;
+}
+
+@media (max-width: 600px) {
+  .banner {
+    min-height: auto;
+    padding: 20px;
+  }
+
+  .logo {
+    font-size: 30px;
+  }
+
+  .cards {
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+    gap: 1rem;
+  }
+
+  .card {
+    margin-bottom: 15px;
+    width: 100%;
+  }
+
+  .form {
+    max-width: 100%;
+    padding: 1rem;
+  }
+
+  .txt {
+    font-size: 16px;
+  }
+
+  .submit {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .banner {
+    min-height: auto;
+  }
+
+  .logo {
+    font-size: 40px;
+  }
+
+  .cards {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 90%;
+    margin: 5%;
+    gap: 1.5rem;
+  }
+
+  .card {
+    margin: 10px;
+    width: 45%;
+  }
+
+  .form {
+    max-width: 80%;
+    padding: 1rem;
+  }
+
+  .txt {
+    font-size: 18px;
+  }
+
+  .submit {
+    width: auto;
+    margin: 10px;
+  }
+}
