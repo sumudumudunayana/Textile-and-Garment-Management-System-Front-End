@@ -1,12 +1,34 @@
 @import url("https://fonts.googleapis.com/css2?family=Italianno&display=swap");
 
-.banner {
-  background: linear-gradient(135deg, #00796b, #004d40);
+ .banner {
+  position: relative;
   width: 100%;
   min-height: 100vh;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
 }
+
+.banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(4px); /* 🔵 You can increase/decrease blur level */
+  z-index: -1; /* Puts image behind content */
+  transform: scale(1.05); /* Prevents blur edges from showing */
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.2), 
+      rgba(0, 0, 0, 0.2)
+    ),
+    url('/back02.webp');
+}
+
 
 .logo {
   font-family: "Italianno", cursive;
@@ -18,36 +40,32 @@
 }
 
 .cards {
-  width: 90%;
+  width: 70%;
   margin: 0 auto;
   display: flex;
-  justify-content: space-around;
-  margin-top: 3%;
-  padding: 2%;
+  justify-content: space-between;
+  margin-top: 12%;
   gap: 2rem;
   flex-wrap: wrap;
-  perspective: 1000px; /* ADDED: Enables 3D transform effect on child elements */
+  perspective: 1000px; /* ✅ Enables 3D effect */
 }
 
 .card {
-  background-color: #1e2722;
+  background-color: #b8b8b8;
   border-radius: 15px;
-  box-shadow: 0 8px 15px rgba(0, 121, 107, 0.4);
+  box-shadow: 0 8px 15px rgba(255, 255, 255, 0.4);
   margin: 2%;
   width: 18rem;
   cursor: pointer;
   overflow: hidden;
   text-align: center;
-  /* UPDATED: Changed transition for a smoother, more dynamic effect */
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* ✅ Smoother hover */
 }
 
 .card:hover {
-  /* UPDATED: Added rotateX for 3D tilt and adjusted translateY */
-  transform: translateY(-15px) rotateX(5deg) scale(1.05);
-  /* UPDATED: Added a second shadow to create a glow effect */
-  box-shadow: 0 20px 35px rgba(0, 121, 107, 0.6), 0 0 20px rgba(167, 255, 235, 0.4);
-  color: #80cbc4;
+  transform: translateY(-15px) rotateX(5deg) scale(1.05); /* ✅ 3D tilt */
+  box-shadow: 0 20px 35px rgba(46, 48, 48, 0.6), 0 0 20px rgba(54, 60, 59, 0.4); /* ✅ glow effect */
+  color: #606766;
 }
 
 .cards img {
@@ -56,23 +74,23 @@
   object-fit: cover;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  transition: transform 0.4s ease; /* ADDED: Smooth transition for the image zoom */
+  transition: transform 0.4s ease; /* ✅ zoom effect */
 }
 
-/* ADDED: Zooms the image when the card is hovered */
 .card:hover img {
-  transform: scale(1.1);
+  transform: scale(1.1); /* ✅ image zoom on hover */
 }
 
 .card .card-body h4 {
-  color: #a7ffeb;
+  color: #504e4e;
   transition: color 0.3s ease;
 }
 
 .card:hover .card-body h4 {
-  color: #80cbc4;
+  color: #000000;
 }
 
+/* The rest remains unchanged */
 .form {
   display: block;
   padding: 1rem;
@@ -119,9 +137,10 @@
 }
 
 .submit:hover {
-  background-color: #004d40;
+  background-color: #555a59;
 }
 
+/* Responsive styles unchanged */
 @media (max-width: 600px) {
   .banner {
     min-height: auto;
