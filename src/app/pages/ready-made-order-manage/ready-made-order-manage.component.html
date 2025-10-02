@@ -1,0 +1,97 @@
+<div class="page">
+  <app-navbar></app-navbar>
+
+  <div class="wrap">
+    <header class="head">
+      <h2>Ready-Made Orders</h2>
+      <div class="meta">
+        <span class="pill">Total Orders: {{ orders.length }}</span>
+        <span class="pill strong">
+          Total Spending: LKR {{ grandTotal | number : "1.0-0" }}
+        </span>
+      </div>
+    </header>
+
+    <div class="table">
+      <div class="thead">
+        <div class="col col-id">Order ID</div>
+        <div class="col">Customer ID</div>
+        <div class="col">Customer Name</div>
+        <div class="col right">Date</div>
+        <div class="col right">Total (LKR)</div>
+        <div class="col actions">Actions</div>
+      </div>
+
+      <ng-container *ngFor="let o of orders; trackBy: trackByOrderId">
+        <!-- Row -->
+        <div class="row">
+          <div class="col col-id">{{ o.readyMadeOrderId }}</div>
+          <div class="col">{{ o.customerId }}</div>
+          <div class="col">{{ o.customerName }}</div>
+          <div class="col right">{{ o.date | date : "yyyy-MM-dd HH:mm" }}</div>
+          <div class="col right strong">
+            {{ o.totalAmount | number : "1.0-0" }}
+          </div>
+          <div class="col actions">
+            <button type="button" class="btn btn-expand" (click)="toggle(o)">
+              <span [class.rotate]="o.expanded">▾</span> Details
+            </button>
+            <button type="button" class="btn btn-danger" (click)="delete(o)">
+              Delete
+            </button>
+          </div>
+        </div>
+
+        <!-- Expanded details -->
+        <div class="expand" *ngIf="o.expanded">
+          <div class="expand-inner">
+            <div class="expand-head">
+              <div>
+                <strong>Order #{{ o.readyMadeOrderId }}</strong>
+              </div>
+              <div>
+                Customer: <strong>#{{ o.customerId }}</strong> •
+                <strong>{{ o.customerName }}</strong>
+              </div>
+            </div>
+
+            <div class="items">
+              <div class="items-head">
+                <div class="i-col name">Item</div>
+                <div class="i-col right">Unit Price</div>
+                <div class="i-col center">Qty</div>
+                <div class="i-col right">Line Total</div>
+              </div>
+
+              <div class="items-row" *ngFor="let it of o.items">
+                <div class="i-col name">{{ it.itemName }}</div>
+                <div class="i-col right">
+                  LKR {{ it.itemPrice | number : "1.0-0" }}
+                </div>
+                <div class="i-col center">{{ it.quantity }}</div>
+                <div class="i-col right strong">
+                  LKR {{ it.lineTotal | number : "1.0-0" }}
+                </div>
+              </div>
+            </div>
+
+            <div class="totals">
+              <div class="line">
+                <span>Subtotal</span>
+                <span>LKR {{ o.subtotal | number : "1.0-0" }}</span>
+              </div>
+              <div class="line">
+                <span>Discount ({{ o.discountPercent }}%)</span>
+                <span>- LKR {{ o.discountAmount | number : "1.0-0" }}</span>
+              </div>
+              <div class="line total">
+                <span>Total</span>
+                <span>LKR {{ o.totalAmount | number : "1.0-0" }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
