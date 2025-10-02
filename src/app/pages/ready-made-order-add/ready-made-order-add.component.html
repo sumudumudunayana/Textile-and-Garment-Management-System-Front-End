@@ -1,0 +1,76 @@
+<div class="banner">
+  <app-navbar></app-navbar>
+
+  <div class="wrap">
+    <!-- ===== Customer details (added) ===== -->
+    <form class="customer" custForm="ngForm">
+      <div class="customer-inputs">
+  <div class="input-group">
+    <label for="custId">Customer ID</label>
+    <input
+      id="custId"
+      type="number"
+      name="customerId"
+      [(ngModel)]="customerId"
+      placeholder="Enter customer ID"
+      (ngModelChange)="persistCustomer()"
+      required
+    />
+  </div>
+
+  <div class="input-group">
+    <label for="custName">Customer Name</label>
+    <input
+      id="custName"
+      type="text"
+      name="customerName"
+      [(ngModel)]="customerName"
+      placeholder="Enter customer name"
+      (ngModelChange)="persistCustomer()"
+      required
+    />
+  </div>
+</div>
+
+
+
+
+      <div class="customer__info" *ngIf="customerId || customerName">
+        <span>Selected Customer : </span>
+        <strong>{{ customerId || "—" }}</strong>
+        <span>•</span>
+        <strong>{{ customerName || "—" }}</strong>
+      </div>
+    </form>
+    <!-- ===== end customer details ===== -->
+
+    <header class="head">
+      <h2>Ready-Made Items</h2>
+
+      <a routerLink="/shopping-cart" class="cart-pill" title="Open cart">
+        🛒 <span>{{ cartCount }}</span>
+      </a>
+    </header>
+
+    <div class="grid">
+      <div class="card" *ngFor="let p of products">
+        <div class="card__image" *ngIf="p.imageUrl">
+          <img [src]="p.imageUrl" [alt]="p.name" />
+        </div>
+
+        <div class="card__body">
+          <h3 class="card__title">{{ p.name }}</h3>
+          <div class="card__price">LKR {{ p.price | number : "1.0-0" }}</div>
+
+          <div class="qty">
+            <button type="button" (click)="dec(p)">−</button>
+            <input type="number" min="1" [(ngModel)]="qtyMap[p.id]" />
+            <button type="button" (click)="inc(p)">+</button>
+          </div>
+
+          <button class="btn-add" (click)="addToCart(p)">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
