@@ -1,0 +1,106 @@
+<div class="banner">
+  <app-navbar></app-navbar>
+  <form #userForm="ngForm">
+  <div class="form">
+    <div>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="user.userName"
+        name="userName"
+        placeholder="Enter Name"
+        required
+      />
+    </div>
+
+    <div>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="user.userAddress"
+        name="userAddress"
+        placeholder="Enter  Address"
+        required
+      />
+    </div>
+
+    <div>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="user.userEmail"
+        name="userEmail"
+        placeholder="Enter Email"
+        required
+      />
+    </div>
+
+    <div>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="user.userPhoneNumber"
+        name="userPhoneNumber"
+        placeholder="Enter phone number"
+        required
+      />
+    </div>
+    <div>
+      <input
+        type="date"
+        class="form-control"
+        [(ngModel)]="user.userDate"
+        name="userDate"
+        placeholder="Enter Date"
+        required
+      />
+    </div>
+    <div>
+  <select
+    class="form-control"
+    [(ngModel)]="user.userRole"
+    name="userRole"
+    required
+  >
+    <option value="" disabled selected>Select Role</option>
+    <option value="Admin">Admin</option>
+    <option value="Manager">Manager</option>
+    <option value="HR Officer">HR Officer</option>
+    <option value="Sales Rep">Sales Rep</option>
+    <option value="Store Suparvisor">Store Suparvisor</option>
+  </select>
+</div>
+
+<div>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="user.userLoginName"
+        name="userLoginName"
+        placeholder="Enter Username"
+        required
+      />
+    </div>
+
+    <div>
+      <input
+        type="password"
+        class="form-control"
+        [(ngModel)]="user.userLoginPassword"
+        name="userLoginPassword"
+        placeholder="Enter Password"
+        required
+      />
+    </div>
+    
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      (click)="addUser(); clearFields()"
+    >
+      Add User
+    </button>
+  </div>
+</form>
+</div>
