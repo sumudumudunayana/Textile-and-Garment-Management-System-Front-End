@@ -1,0 +1,28 @@
+<div class="banner">
+  <app-navbar></app-navbar>
+
+  <div class="property-table-container">
+    <table class="property-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Address</th>
+          <th>Email</th>
+          <th>Contact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of customerInfo">
+          <td>{{ customer.id }}</td>
+          <td>{{ customer.customerFirstName }}</td>
+          <td>{{ customer.customerLastName }}</td>
+          <td>{{ customer.customerAddress }}</td>
+          <td>{{ customer.customerEmail }}</td>
+          <td>{{ customer.customerPhoneNumber }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
