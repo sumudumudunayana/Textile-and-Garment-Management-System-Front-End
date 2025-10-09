@@ -1,0 +1,73 @@
+<div class="banner">
+  <app-navbar></app-navbar>
+  <form #userForm="ngForm">
+    <div class="form">
+      <div>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="inventory.productName"
+          name="productName"
+          placeholder="Enter Product Name"
+          required
+        />
+      </div>
+
+      <div>
+        <select
+          class="form-control"
+          [(ngModel)]="inventory.productCategory"
+          name="productCategory"
+          required
+        >
+          <option value="" disabled selected>Select Category</option>
+          <option value="Admin">Ladies</option>
+          <option value="Manager">Gents</option>
+          <option value="HR Officer">Kids</option>
+          <option value="Linen">Fabric</option>
+        </select>
+      </div>
+
+      <div>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="inventory.quantity"
+          name="quantity"
+          placeholder="Enter quantity"
+          required
+        />
+      </div>
+
+      <div>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="inventory.price"
+          name="price"
+          placeholder="Enter price"
+          required
+        />
+      </div>
+
+      <div>
+        <input
+          type="date"
+          class="form-control"
+          [(ngModel)]="inventory.productEntryDate"
+          name="productEntryDate"
+          placeholder="Enter product cleared date"
+          required
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary"
+        (click)="addUser(); clearFields()"
+      >
+        Add Product
+      </button>
+    </div>
+  </form>
+</div>
