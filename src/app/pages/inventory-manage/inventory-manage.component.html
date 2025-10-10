@@ -1,0 +1,49 @@
+<div class="banner">
+  <app-navbar></app-navbar>
+  <div class="searchbar">
+    <input
+      type="text"
+      class="search"
+      placeholder="Enter Product ID"
+      [(ngModel)]="id"
+    />
+    <button class="searchbtn" (click)="getProductInfo()">Search</button>
+  </div>
+
+  <div class="details">
+    <div *ngIf="productInfo.id">
+      <p>
+        Product ID: <span class="txt">{{ productInfo.id }}</span>
+      </p>
+      <p>
+        Name:
+        <input class="txt" [(ngModel)]="updatedProductInfo.productName" />
+      </p>
+      <p>
+        Quantity: <input class="txt" [(ngModel)]="updatedProductInfo.quantity" />
+      </p>
+      <p>
+        Price:
+        <input class="txt" [(ngModel)]="updatedProductInfo.price" />
+      </p>
+      <p>
+        Product Entry Date:
+        <input class="txt" [(ngModel)]="updatedProductInfo.productEntryDate" />
+      </p>
+      <p>
+        Category:
+        <select class="txt" [(ngModel)]="updatedProductInfo.productCategory" required>
+          <option value="" disabled selected>Select Category</option>
+          <option value="Admin">Ladies</option>
+          <option value="Manager">Gents</option>
+          <option value="HR Officer">Kids</option>
+        </select>
+      </p>
+
+      <div class="buttons">
+        <button (click)="updateProduct()" class="update">Update</button>
+        <button (click)="deleteProduct()" class="delete">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
