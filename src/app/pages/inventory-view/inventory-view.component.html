@@ -1,0 +1,30 @@
+<div class="banner">
+    <app-navbar></app-navbar>
+    
+    <div class="property-table-container">
+        <table class="property-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Product Name</th>
+              <th>Category</th>
+              <th>Quentity</th>
+              <th>Price</th>
+              <th>Entry Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of productInfo">
+              <td>{{ product.id }}</td>
+              <td>{{product.productName }}</td>
+              <td>{{ product.productCategory }}</td>
+              <td>{{ product.quantity}}</td>
+              <td>{{ product.price }}</td>
+              <td>{{ product.productEntryDate }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+    
