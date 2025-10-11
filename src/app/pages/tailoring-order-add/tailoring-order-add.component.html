@@ -1,0 +1,116 @@
+<div class="banner">
+  <app-navbar></app-navbar>
+  <form #userForm="ngForm">
+    <div class="form">
+      <div>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="tailoringOrder.customerId"
+          name="customerId"
+          placeholder="Enter Customer Id"
+          required
+        />
+      </div>
+      <div>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="tailoringOrder.customerName"
+          name="customerName"
+          placeholder="Enter Customer Name"
+          required
+        />
+      </div>
+
+      <div>
+        <select
+          class="form-control"
+          [(ngModel)]="tailoringOrder.fabricType"
+          name="fabricType"
+          required
+        >
+          <option value="" disabled selected>Select Fabric Type</option>
+          <option value="Cotton">Cotton</option>
+          <option value="Silk">Silk</option>
+          <option value="Wool">Wool</option>
+          <option value="Linen">Linen</option>
+          <option value="Denim">Denim</option>
+        </select>
+      </div>
+
+      <div>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="tailoringOrder.quantity"
+          name="quantity"
+          placeholder="Enter Quantity you want"
+          required
+        />
+      </div>
+
+      <div>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="tailoringOrder.length"
+          name="length"
+          placeholder="Enter Length"
+          required
+        />
+      </div>
+      <div>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="tailoringOrder.width"
+          name="width"
+          placeholder="Enter Width"
+          required
+        />
+      </div>
+      <div>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="tailoringOrder.description"
+          name="length"
+          placeholder="Enter description"
+          required
+        />
+        </div>
+        <div>
+        <input
+          type="date"
+          class="form-control"
+          [(ngModel)]="tailoringOrder.deliveryDate"
+          name="deliveryDate"
+          placeholder="Enter Delevry Date"
+          required
+        />
+        </div>
+        <div>
+          <select
+            class="form-control"
+            [(ngModel)]="tailoringOrder.status"
+            name="status"
+            required
+          >
+            <option value="" disabled selected>Select status</option>
+            <option value="Completeed">Completeed</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+        </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary"
+        (click)="addTailoringOrder(); clearFields()"
+      >
+        Add Tailoring Order
+      </button>
+    </div>
+  </form>
+</div>
