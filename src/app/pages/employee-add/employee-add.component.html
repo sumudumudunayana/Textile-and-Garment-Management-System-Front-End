@@ -1,0 +1,56 @@
+<div class="banner">
+  <app-navbar></app-navbar>
+  <form #userForm="ngForm">
+    <div class="form">
+      <div>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="employee.employeeName"
+          name="employeeName"
+          placeholder="Enter Name"
+          required
+        />
+      </div>
+      <div>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="employee.employeeAddress"
+          name="employeeAddress"
+          placeholder="Enter Address"
+          required
+        />
+      </div>
+
+      <div>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="employee.employeeEmail"
+          name="employeeEmail"
+          placeholder="Enter Email"
+          required
+        />
+      </div>
+      <div>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="employee.employeePhoneNumber"
+          name="employeePhoneNumber"
+          placeholder="Enter Phone Number"
+          required
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary"
+        (click)="addEmployee(); clearFields()"
+      >
+        Add Employee
+      </button>
+    </div>
+  </form>
+</div>
