@@ -40,12 +40,12 @@
 }
 
 .cards {
-  width: 70%;
+  width: 90%;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  margin-top: 3%;
-  gap: 2rem;
+  margin-top: 1.5%;
+  gap: 1rem;
   flex-wrap: wrap;
   perspective: 1000px; /* ✅ Enables 3D effect */
 }
