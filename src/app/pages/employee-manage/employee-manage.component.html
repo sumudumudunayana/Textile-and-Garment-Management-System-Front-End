@@ -1,0 +1,44 @@
+<div class="banner">
+  <app-navbar></app-navbar>
+  <div class="searchbar">
+    <input
+      type="text"
+      class="search"
+      placeholder="Enter employee ID"
+      [(ngModel)]="id"
+    />
+    <button class="searchbtn" (click)="getEmployeeInfo()">Search</button>
+  </div>
+
+  <div class="details">
+    <div *ngIf="employeeInfo.id">
+      <p>
+        Customer ID: <span class="txt">{{ employeeInfo.id }}</span>
+      </p>
+      <p>
+        Name:
+        <input class="txt" [(ngModel)]="updatedEmployeeInfo.employeeName" />
+      </p>
+      <p>
+        Address:
+        <input class="txt" [(ngModel)]="updatedEmployeeInfo.employeeAddress" />
+      </p>
+      <p>
+        Email:
+        <input class="txt" [(ngModel)]="updatedEmployeeInfo.employeeEmail" />
+      </p>
+      <p>
+        Contact Number:
+        <input
+          class="txt"
+          [(ngModel)]="updatedEmployeeInfo.employeePhoneNumber"
+        />
+      </p>
+
+      <div class="buttons">
+        <button (click)="updateEmployee()" class="update">Update</button>
+        <button (click)="deleteEmployee()" class="delete">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
