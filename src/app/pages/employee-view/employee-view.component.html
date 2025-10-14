@@ -1,0 +1,26 @@
+<div class="banner">
+  <app-navbar></app-navbar>
+
+  <div class="property-table-container">
+    <table class="property-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Email</th>
+          <th>Contact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of employeeInfo">
+          <td>{{ employee.id }}</td>
+          <td>{{ employee.employeeName }}</td>
+          <td>{{ employee.employeeAddress }}</td>
+          <td>{{ employee.employeeEmail }}</td>
+          <td>{{ employee.employeePhoneNumber }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
