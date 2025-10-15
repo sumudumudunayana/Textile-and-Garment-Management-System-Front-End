@@ -1,0 +1,62 @@
+<div class="banner">
+  <app-navbar></app-navbar>
+  <div class="searchbar">
+    <input
+      type="text"
+      class="search"
+      placeholder="Enter User ID"
+      [(ngModel)]="id"
+    />
+    <button class="searchbtn" (click)="getUserInfo()">Search</button>
+  </div>
+
+  <div class="details">
+    <div *ngIf="userInfo.id">
+      <p>
+        User ID: <span class="txt">{{ userInfo.id }}</span>
+      </p>
+      <p>
+        Name:
+        <input class="txt" [(ngModel)]="updatedUserInfo.userName" />
+      </p>
+      <p>
+        Address: <input class="txt" [(ngModel)]="updatedUserInfo.userAddress" />
+      </p>
+      <p>
+        Email: <input class="txt" [(ngModel)]="updatedUserInfo.userEmail" />
+      </p>
+      <p>
+        Contact Number:
+        <input class="txt" [(ngModel)]="updatedUserInfo.userPhoneNumber" />
+      </p>
+      <p>
+        Date:
+        <input class="txt" [(ngModel)]="updatedUserInfo.userDate" />
+      </p>
+      <p>
+        Role:
+        <select class="txt" [(ngModel)]="updatedUserInfo.userRole" required>
+          <option value="" disabled selected>Select Role</option>
+          <option value="Admin">Admin</option>
+          <option value="Manager">Manager</option>
+          <option value="HR Officer">HR Officer</option>
+          <option value="Sales Rep">Sales Rep</option>
+          <option value="Store Suparvisor">Store Suparvisor</option>
+        </select>
+      </p>
+      <p>
+         User Login Name:
+        <input class="txt" [(ngModel)]="updatedUserInfo.userLoginName" />
+      </p>
+      <p>
+         User Login Password:
+        <input class="txt" [(ngModel)]="updatedUserInfo.userLoginPassword" />
+      </p>
+
+      <div class="buttons">
+        <button (click)="updateUser()" class="update">Update</button>
+        <button (click)="deleteUser()" class="delete">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
