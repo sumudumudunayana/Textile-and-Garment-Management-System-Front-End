@@ -1,0 +1,36 @@
+<div class="banner">
+    <app-navbar></app-navbar>
+    
+    <div class="property-table-container">
+        <table class="property-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th> Name</th>
+              <th>Address</th>
+              <th>Email</th>
+              <th>Contact</th>
+              <th>Date</th>
+              <th>Role</th>
+              <th>Username</th>
+              <th>Password</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of userInfo">
+              <td>{{ user.id }}</td>
+              <td>{{user.userName }}</td>
+              <td>{{ user.userAddress }}</td>
+              <td>{{ user.userEmail}}</td>
+              <td>{{ user.userPhoneNumber }}</td>
+              <td>{{ user.userDate }}</td>
+              <td>{{ user.userRole }}</td>
+              <td>{{ user.userLoginName }}</td>
+              <td>{{ user.userLoginPassword }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+    

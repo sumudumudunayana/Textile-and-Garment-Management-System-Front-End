@@ -1,0 +1,80 @@
+.banner {
+  background-color: #46484c; /* dark background */
+  width: 100%;
+  height: 100vh;
+}
+
+.property-table-container {
+  margin: 20px auto;
+  width: 90%;
+  max-width: 1200px;
+  overflow-x: auto;
+  font-family: 'Arial', sans-serif;
+  background-color: #46484c;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  padding: 1.5rem;
+  color: #f5f5f5;
+}
+
+.property-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px; /* spacing between rows */
+  background-color: transparent;
+}
+
+.property-table th {
+  background-color: #3a3b3f;
+  color: #ffffff;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 14px 18px;
+  text-align: left;
+  border: none;
+}
+
+.property-table td {
+  background-color: #2c2d30;
+  color: #f5f5f5;
+  padding: 14px 18px;
+  border: none;
+  transition: background-color 0.2s ease;
+}
+
+/* Round first and last cell of each row */
+.property-table tr td:first-child {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+.property-table tr td:last-child {
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+/* Header round corners */
+.property-table tr:first-child th:first-child {
+  border-top-left-radius: 12px;
+}
+.property-table tr:first-child th:last-child {
+  border-top-right-radius: 12px;
+}
+
+/* Hover effect */
+.property-table tr:hover td {
+  background-color: #525357;
+  cursor: pointer;
+}
+
+/* Zebra stripes */
+.property-table tr:nth-child(even) td {
+  background-color: #3f4043;
+}
+
+.property-table tr {
+  transition: background-color 0.2s ease;
+}
+.property-table td.center {
+  text-align: center;
+}
+
