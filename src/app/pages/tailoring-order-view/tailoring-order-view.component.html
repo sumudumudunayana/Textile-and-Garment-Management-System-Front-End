@@ -1,0 +1,34 @@
+<div class="banner">
+  <app-navbar></app-navbar>
+
+  <div class="property-table-container">
+    <table class="property-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Customer Name</th>
+          <th>Fabric</th>
+          <th>Quentity</th>
+          <th>Length</th>
+          <th>Width</th>
+          <th>Deleviry Date</th>
+          <th>Status</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tailoringOrder of tailoringOrderInfo">
+          <td>{{ tailoringOrder.id }}</td>
+          <td>{{ tailoringOrder.customerName }}</td>
+          <td>{{ tailoringOrder.fabricType }}</td>
+          <td>{{ tailoringOrder.quantity }}</td>
+          <td>{{ tailoringOrder.length }}</td>
+          <td>{{ tailoringOrder.width }}</td>
+          <td>{{ tailoringOrder.deliveryDate }}</td>
+          <td>{{ tailoringOrder.status }}</td>
+          <td>{{ tailoringOrder.totalAmount }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
