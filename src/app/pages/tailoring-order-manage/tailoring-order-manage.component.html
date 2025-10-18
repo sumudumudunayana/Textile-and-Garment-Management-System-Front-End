@@ -1,0 +1,86 @@
+<div class="banner">
+  <app-navbar></app-navbar>
+  <div class="searchbar">
+    <input
+      type="text"
+      class="search"
+      placeholder="Enter Tailoring Order ID"
+      [(ngModel)]="id"
+    />
+    <button class="searchbtn" (click)="getTailoringOrderInfo()">Search</button>
+  </div>
+
+  <div class="details">
+    <div *ngIf="tailoringOrderInfo.id">
+      <p>
+        Tailoring Order ID: <span class="txt">{{ tailoringOrderInfo.id }}</span>
+      </p>
+      <p>
+        Customer Name:
+        <input
+          class="txt"
+          [(ngModel)]="updatedTailoringOrderInfo.customerName"
+        />
+      </p>
+      <p>
+        Fabric Type:
+        <select
+          class="txt"
+          [(ngModel)]="updatedTailoringOrderInfo.fabricType"
+          required
+        >
+          <option value="">Select Fabric Type</option>
+          <option value="Cotton">Cotton</option>
+          <option value="Silk">Silk</option>
+          <option value="Wool">Wool</option>
+          <option value="Linen">Linen</option>
+          <option value="Denim">Denim</option>
+        </select>
+      </p>
+      <p>
+        Quantity:
+        <input class="txt" [(ngModel)]="updatedTailoringOrderInfo.quantity" />
+      </p>
+      <p>
+        Length:
+        <input class="txt" [(ngModel)]="updatedTailoringOrderInfo.length" />
+      </p>
+      <p>
+        Width:
+        <input class="txt" [(ngModel)]="updatedTailoringOrderInfo.width" />
+      </p>
+      <p>
+        Discription:
+        <input
+          class="txt"
+          [(ngModel)]="updatedTailoringOrderInfo.description"
+        />
+      </p>
+      <p>
+        Product Entry Date:
+        <input
+          class="txt"
+          [(ngModel)]="updatedTailoringOrderInfo.deliveryDate"
+        />
+      </p>
+      <p>
+        Stsatus:
+        <select
+          class="txt"
+          [(ngModel)]="updatedTailoringOrderInfo.status"
+          required
+        >
+          <option value="" disabled selected>Select Status</option>
+          <option value="Completeed">Completeed</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Canceled">Canceled</option>
+        </select>
+      </p>
+
+      <div class="buttons">
+        <button (click)="updateTailoringOrder()" class="update">Update</button>
+        <button (click)="deleteTailoringOrder()" class="delete">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
