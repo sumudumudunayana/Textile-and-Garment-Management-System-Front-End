@@ -2,38 +2,34 @@
   <app-navbar></app-navbar>
 
   <div class="wrap">
-    <!-- ===== Customer details (added) ===== -->
     <form class="customer" custForm="ngForm">
       <div class="customer-inputs">
-  <div class="input-group">
-    <label for="custId">Customer ID</label>
-    <input
-      id="custId"
-      type="number"
-      name="customerId"
-      [(ngModel)]="customerId"
-      placeholder="Enter customer ID"
-      (ngModelChange)="persistCustomer()"
-      required
-    />
-  </div>
+        <div class="input-group">
+          <label for="custId">Customer ID</label>
+          <input
+            id="custId"
+            type="number"
+            name="customerId"
+            [(ngModel)]="customerId"
+            placeholder="Enter customer ID"
+            (ngModelChange)="persistCustomer()"
+            required
+          />
+        </div>
 
-  <div class="input-group">
-    <label for="custName">Customer Name</label>
-    <input
-      id="custName"
-      type="text"
-      name="customerName"
-      [(ngModel)]="customerName"
-      placeholder="Enter customer name"
-      (ngModelChange)="persistCustomer()"
-      required
-    />
-  </div>
-</div>
-
-
-
+        <div class="input-group">
+          <label for="custName">Customer Name</label>
+          <input
+            id="custName"
+            type="text"
+            name="customerName"
+            [(ngModel)]="customerName"
+            placeholder="Enter customer name"
+            (ngModelChange)="persistCustomer()"
+            required
+          />
+        </div>
+      </div>
 
       <div class="customer__info" *ngIf="customerId || customerName">
         <span>Selected Customer : </span>
@@ -42,7 +38,6 @@
         <strong>{{ customerName || "—" }}</strong>
       </div>
     </form>
-    <!-- ===== end customer details ===== -->
 
     <header class="head">
       <h2>Ready-Made Items</h2>

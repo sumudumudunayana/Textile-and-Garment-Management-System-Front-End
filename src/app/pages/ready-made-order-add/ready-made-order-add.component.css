@@ -147,9 +147,7 @@
   font-size: 13px;
 }
 
-/* -------------------------- */
-/* CUSTOMER INPUT STYLING     */
-/* -------------------------- */
+
 .customer-inputs {
   display: flex;
   flex-wrap: wrap;
@@ -172,7 +170,7 @@
 
 .input-group input {
   appearance: none;
-  border-radius: 999px !important;     /* ✅ force all corners round */
+  border-radius: 999px !important;    
   border: 1px solid var(--stroke);
   background-color: #1e293b;
   color: #fff;
