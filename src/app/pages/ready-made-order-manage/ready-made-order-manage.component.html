@@ -23,7 +23,6 @@
       </div>
 
       <ng-container *ngFor="let o of orders; trackBy: trackByOrderId">
-        <!-- Row -->
         <div class="row">
           <div class="col col-id">{{ o.readyMadeOrderId }}</div>
           <div class="col">{{ o.customerId }}</div>
@@ -42,7 +41,6 @@
           </div>
         </div>
 
-        <!-- Expanded details -->
         <div class="expand" *ngIf="o.expanded">
           <div class="expand-inner">
             <div class="expand-head">

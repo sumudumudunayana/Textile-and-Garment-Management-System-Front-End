@@ -48,7 +48,7 @@ export class ReadyMadeOrderManageComponent implements OnInit {
         next: (res) => {
           this.orders = res.map(o => ({
             ...o,
-            id: o.readyMadeOrderId, // to keep compatibility with HTML template
+            id: o.readyMadeOrderId,
             total: o.totalAmount,
             expanded: false
           }));

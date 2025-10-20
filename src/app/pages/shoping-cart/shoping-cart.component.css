@@ -167,6 +167,94 @@
   font-size: 18px;
 }
 
+
+/* Pricing Strategy dropdown */
+.strategy-select {
+  /* Reset / base */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* Size & layout */
+  min-width: 210px;
+  max-width: 100%;
+  padding: 10px 40px 10px 12px; /* leave space for chevron on right */
+  border-radius: 999px;
+  border: 1px solid var(--stroke);
+
+  /* Colors (matches .summary card) */
+  background: #fff;                    /* field bg */
+  color: var(--ink);                   /* text color */
+  box-shadow: 0 6px 14px rgba(0,0,0,.08);
+
+  /* Typography */
+  font: inherit;
+  font-weight: 700;
+  line-height: 1.2;
+
+  /* Transition */
+  transition: border-color .15s ease, box-shadow .15s ease, transform .08s ease;
+
+  /* Custom chevron using inline SVG */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 18px 18px;
+}
+
+.strategy-select:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.12);
+}
+
+.strategy-select:focus {
+  outline: none;
+  border-color: #6366f1;               /* indigo ring */
+  box-shadow:
+    0 0 0 3px rgba(99,102,241,.15),
+    0 10px 22px rgba(0,0,0,.14);
+}
+
+.strategy-select:active {
+  transform: translateY(0);
+}
+
+.strategy-select:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+/* Align the select to the right column like your discount buttons */
+.summary .row .strategy-select {
+  margin-left: auto;
+}
+
+/* Optional: a subtle gradient outline on focus for flair */
+.strategy-select:focus-visible {
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 4px rgba(99,102,241,.35);
+}
+
+/* High-contrast support for dark backgrounds outside the card (failsafe) */
+.banner .strategy-select {
+  background-color: #fff;
+  color: #0f172a;
+}
+
+/* Small screens: make it full-width inside the summary card */
+@media (max-width: 480px) {
+  .summary .row .strategy-select {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+
+
+
+
 /* Discounts */
 .discounts {
   display: flex;
