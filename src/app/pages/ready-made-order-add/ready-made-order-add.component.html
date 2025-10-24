@@ -2,39 +2,36 @@
   <app-navbar></app-navbar>
 
   <div class="wrap">
-    <form class="customer" custForm="ngForm">
+    <form class="customer" #custForm="ngForm">
       <div class="customer-inputs">
+        <!-- Customer selector -->
         <div class="input-group">
-          <label for="custId">Customer ID</label>
-          <input
-            id="custId"
-            type="number"
-            name="customerId"
-            [(ngModel)]="customerId"
-            placeholder="Enter customer ID"
-            (ngModelChange)="persistCustomer()"
+          <label for="customerSelect">Customer</label>
+          <select
+            id="customerSelect"
+            name="customerSelect"
+            class="form-select"
+            [(ngModel)]="selectedCustomerId"
+            (ngModelChange)="onCustomerChange()"
             required
-          />
-        </div>
-
-        <div class="input-group">
-          <label for="custName">Customer Name</label>
-          <input
-            id="custName"
-            type="text"
-            name="customerName"
-            [(ngModel)]="customerName"
-            placeholder="Enter customer name"
-            (ngModelChange)="persistCustomer()"
-            required
-          />
+          >
+            <option [ngValue]="null" disabled selected>
+              {{ customersLoading ? "Loading customers…" : "Select customer" }}
+            </option>
+            <option *ngFor="let c of customers" [ngValue]="c.id">
+              {{ c.id }} — {{ c.customerFirstName }} {{ c.customerLastName }}
+            </option>
+          </select>
+          <small *ngIf="customersError" class="text-danger">{{
+            customersError
+          }}</small>
         </div>
       </div>
 
       <div class="customer__info" *ngIf="customerId || customerName">
         <span>Selected Customer : </span>
         <strong>{{ customerId || "—" }}</strong>
-        <span>•</span>
+        <span>• </span>
         <strong>{{ customerName || "—" }}</strong>
       </div>
     </form>

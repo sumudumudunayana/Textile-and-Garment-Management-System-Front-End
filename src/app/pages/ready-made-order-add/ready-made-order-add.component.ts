@@ -20,6 +20,12 @@ interface CartItem {
   lineTotal: number;
 }
 
+interface Customer {
+  id: number;
+  customerFirstName: string;
+  customerLastName: string;
+}
+
 @Component({
   selector: 'app-ready-made-order-add',
   standalone: true,
@@ -30,6 +36,13 @@ interface CartItem {
 export class ReadyMadeOrderAddComponent implements OnInit {
   customerId: number | null = null;
   customerName = '';
+
+  // Dropdown data/state
+  customers: Customer[] = [];
+  selectedCustomerId: number | null = null;
+  customersLoading = false;
+  customersError = '';
+
   products: Product[] = [];
   qtyMap: Record<number, number> = {};
   cartCount = 0;
@@ -38,14 +51,76 @@ export class ReadyMadeOrderAddComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchProducts();
+
+    this.loadCustomers();
+
     const saved = this.readCustomer();
     if (saved) {
+      this.selectedCustomerId = saved.id;
       this.customerId = saved.id;
       this.customerName = saved.name;
     }
+
     this.refreshCartCount();
   }
 
+  loadCustomers(): void {
+    this.customersLoading = true;
+    this.customersError = '';
+
+    this.http
+      .get<Customer[]>('http://localhost:8080/customer/get-all')
+      .subscribe({
+        next: (list) => {
+          // Map full name properly
+          this.customers = (list ?? []).map((c) => ({
+            id: c.id,
+            customerFirstName: c.customerFirstName,
+            customerLastName: c.customerLastName,
+          }));
+
+          this.customersLoading = false;
+
+          // Restore saved customer if available
+          const saved = this.readCustomer();
+          if (saved && this.customers.some((x) => x.id === saved.id)) {
+            this.selectedCustomerId = saved.id;
+            const found = this.customers.find((x) => x.id === saved.id)!;
+            this.customerId = found.id;
+            this.customerName = `${found.customerFirstName} ${found.customerLastName}`;
+          }
+        },
+        error: () => {
+          this.customersLoading = false;
+          this.customersError = 'Failed to load customers. Please try again.';
+        },
+      });
+  }
+
+  onCustomerChange(): void {
+    const c =
+      this.customers.find((x) => x.id === this.selectedCustomerId) || null;
+    this.customerId = c ? c.id : null;
+    this.customerName = c ? `${c.customerFirstName} ${c.customerLastName}` : '';
+    this.persistCustomer();
+  }
+
+  persistCustomer(): void {
+    const payload = {
+      id: this.customerId ? Number(this.customerId) : null,
+      name: (this.customerName || '').trim(),
+    };
+    localStorage.setItem('cart_customer', JSON.stringify(payload));
+  }
+
+  private readCustomer(): { id: number | null; name: string } | null {
+    try {
+      const raw = localStorage.getItem('cart_customer');
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  }
 
   fetchProducts(): void {
     this.products = [
@@ -133,25 +208,5 @@ export class ReadyMadeOrderAddComponent implements OnInit {
 
   private round2(n: number): number {
     return Math.round(n * 100) / 100;
-  }
-
-  persistCustomer(): void {
-    const payload = {
-      id: this.customerId ? Number(this.customerId) : null,
-      name: (this.customerName || '').trim(),
-    };
-    
-    localStorage.setItem('cart_customer', JSON.stringify(payload));
-  }
-
-
-
-  private readCustomer(): { id: number | null; name: string } | null {
-    try {
-      const raw = localStorage.getItem('cart_customer');
-      return raw ? JSON.parse(raw) : null;
-    } catch {
-      return null;
-    }
   }
 }

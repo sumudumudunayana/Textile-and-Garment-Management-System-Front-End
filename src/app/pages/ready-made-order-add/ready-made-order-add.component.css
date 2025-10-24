@@ -168,9 +168,9 @@
   color: #cbd5e1;
 }
 
-.input-group input {
+.input-group select {
   appearance: none;
-  border-radius: 999px !important;    
+  border-radius: 999px !important;
   border: 1px solid var(--stroke);
   background-color: #1e293b;
   color: #fff;
@@ -182,3 +182,4 @@
   transition: 0.2s ease all;
   display: block;
 }
+
