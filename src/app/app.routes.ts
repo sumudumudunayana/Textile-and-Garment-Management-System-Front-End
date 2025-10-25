@@ -26,6 +26,10 @@ import { EmployeeComponent } from './pages/employee/employee.component';
 import { EmployeeAddComponent } from './pages/employee-add/employee-add.component';
 import { EmployeeViewComponent } from './pages/employee-view/employee-view.component';
 import { EmployeeManageComponent } from './pages/employee-manage/employee-manage.component';
+import { AuthGuard } from './auth/auth.guard';
+import { RoleGuard } from './auth/role.guard';
+import { DashboardSalesRepComponent } from './pages/dashboard-sales-rep/dashboard-sales-rep.component';
+import { DashboardHrComponent } from './pages/dashboard-hr/dashboard-hr.component';
 
 export const routes: Routes = [
   {
@@ -35,6 +39,20 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { roles: ['Admin', 'Manager','Store Suparvisor']}
+  },
+  {
+    path: 'sales-dashboard',
+    component: DashboardSalesRepComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { roles: ['Sales Rep'] }
+  },
+  {
+    path: 'HR-dashboard',
+    component: DashboardHrComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { roles: ['HR Officer'] }
   },
   {
     path: 'navbar',
