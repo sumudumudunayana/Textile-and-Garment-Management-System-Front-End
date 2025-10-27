@@ -1,70 +1,86 @@
 <div class="banner">
   <app-navbar></app-navbar>
-  <form #userForm="ngForm">
+
+  <form #userForm="ngForm" (ngSubmit)="addProduct(userForm)" novalidate>
     <div class="form">
-      <div>
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="inventory.productName"
-          name="productName"
-          placeholder="Enter Product Name"
-          required
-        />
+
+      <input
+        type="text"
+        class="form-control"
+        name="productName"
+        [(ngModel)]="inventory.productName"
+        placeholder="Enter Product Name"
+        required
+        #nameRef="ngModel"
+      />
+      <div class="error" *ngIf="(nameRef.invalid && nameRef.touched) || (userForm.submitted && nameRef.invalid)">
+        Product name is required.
       </div>
 
-      <div>
-        <select
-          class="form-control"
-          [(ngModel)]="inventory.productCategory"
-          name="productCategory"
-          required
-        >
-          <option value="" disabled selected>Select Category</option>
-          <option value="Admin">Ladies</option>
-          <option value="Manager">Gents</option>
-          <option value="HR Officer">Kids</option>
-          <option value="Linen">Fabric</option>
-        </select>
+      <select
+        class="form-control"
+        name="productCategory"
+        [(ngModel)]="inventory.productCategory"
+        required
+        #catRef="ngModel"
+      >
+        <option value="" disabled >Select Category</option>
+        <option value="Ladies">Ladies</option>
+        <option value="Gents">Gents</option>
+        <option value="Kids">Kids</option>
+        <option value="Fabric">Fabric</option>
+      </select>
+      <div class="error" *ngIf="(catRef.invalid && catRef.touched) || (userForm.submitted && catRef.invalid)">
+        Please select a category.
       </div>
 
-      <div>
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="inventory.quantity"
-          name="quantity"
-          placeholder="Enter quantity"
-          required
-        />
+      <input
+        type="number"
+        class="form-control"
+        name="quantity"
+        [(ngModel)]="inventory.quantity"
+        placeholder="Enter quantity"
+        required
+        min="1"
+        #qtyRef="ngModel"
+      />
+      <div class="error" *ngIf="(qtyRef.invalid && qtyRef.touched) || (userForm.submitted && qtyRef.invalid)">
+        <span *ngIf="qtyRef.errors?.['required']">Quantity is required.</span>
+        <span *ngIf="qtyRef.errors?.['min']">Quantity must be greater than 0.</span>
       </div>
 
-      <div>
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="inventory.price"
-          name="price"
-          placeholder="Enter price"
-          required
-        />
+      <input
+        type="number"
+        class="form-control"
+        name="price"
+        [(ngModel)]="inventory.price"
+        placeholder="Enter price"
+        required
+        min="1"
+        step="0.01"
+        #priceRef="ngModel"
+      />
+      <div class="error" *ngIf="(priceRef.invalid && priceRef.touched) || (userForm.submitted && priceRef.invalid)">
+        <span *ngIf="priceRef.errors?.['required']">Price is required.</span>
+        <span *ngIf="priceRef.errors?.['min']">Price must be greater than 0.</span>
       </div>
 
-      <div>
-        <input
-          type="date"
-          class="form-control"
-          [(ngModel)]="inventory.productEntryDate"
-          name="productEntryDate"
-          placeholder="Enter product cleared date"
-          required
-        />
+      <input
+        type="date"
+        class="form-control"
+        name="productEntryDate"
+        [(ngModel)]="inventory.productEntryDate"
+        required
+        #dateRef="ngModel"
+      />
+      <div class="error" *ngIf="(dateRef.invalid && dateRef.touched) || (userForm.submitted && dateRef.invalid)">
+        Product entry date is required.
       </div>
 
       <button
         type="submit"
         class="btn btn-primary"
-        (click)="addUser(); clearFields()"
+        [disabled]="userForm.invalid"
       >
         Add Product
       </button>

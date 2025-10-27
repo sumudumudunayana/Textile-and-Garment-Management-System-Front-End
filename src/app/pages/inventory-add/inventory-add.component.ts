@@ -1,58 +1,80 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../../common/navbar/navbar.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+
+type NumOrNull = number | null;
 
 @Component({
   selector: 'app-inventory-add',
   standalone: true,
   imports: [NavbarComponent, FormsModule, CommonModule],
   templateUrl: './inventory-add.component.html',
-  styleUrl: './inventory-add.component.css'
+  styleUrls: ['./inventory-add.component.css']  
 })
 export class InventoryAddComponent {
-  public inventory: any = {
+  private readonly EMPTY = {
     productName: '',
     productCategory: '',
-    quantity: '',
-    price: '',
+    quantity: null as NumOrNull,
+    price: null as NumOrNull,
     productEntryDate: '',
   };
 
-  async addUser() {
+  public inventory = { ...this.EMPTY };
+
+  async addProduct(form: NgForm) {
+    const name = (this.inventory.productName || '').trim();
+    const category = (this.inventory.productCategory || '').trim();
+    const date = (this.inventory.productEntryDate || '').trim();
+
+    const quantityNum = Number(this.inventory.quantity);
+    const priceNum = Number(this.inventory.price);
+
+    if (!name || !category || !date || this.inventory.quantity == null || this.inventory.price == null) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+    if (isNaN(quantityNum) || quantityNum <= 0) {
+      alert('Quantity must be a number greater than 0.');
+      return;
+    }
+    if (isNaN(priceNum) || priceNum <= 0) {
+      alert('Price must be a number greater than 0.');
+      return;
+    }
+
     try {
-      let response = await fetch('http://localhost:8080/inventory/add-inventory', {
+      const response = await fetch('http://localhost:8080/inventory/add-inventory', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          productName: this.inventory.productName,
-          productCategory: this.inventory.productCategory,
-          quantity: this.inventory.quantity,
-          price: this.inventory.price,
-          productEntryDate: this.inventory.productEntryDate,
+          productName: name,
+          productCategory: category,
+          quantity: quantityNum,
+          price: priceNum,
+          productEntryDate: date,
         }),
       });
+      if (!response.ok) throw new Error('Failed to add product');
 
-      if (!response.ok) {
-        throw new Error('Failed to add user');
-      }
+      alert('product added successfully');
 
-      alert('user added successfully');
-      let body = await response.json();
-      alert(JSON.stringify(body));
-      return body;
-    } catch (error) {
-      console.error('Error:', error);
+      form.resetForm(this.EMPTY);
+
+      this.inventory = { ...this.EMPTY };
+
+    } catch (e) {
+      console.error(e);
+      alert('Error adding product');
     }
   }
 
   clearFields() {
-    this.inventory = {
-      productName: '',
-    productCategory: '',
-    quantity: '',
-    price: '',
-    productEntryDate: '',
-    };
+    this.inventory.productName = '';
+    this.inventory.productCategory = '';
+    this.inventory.quantity = null;
+    this.inventory.price = null;
+    this.inventory.productEntryDate = '';
   }
 }
