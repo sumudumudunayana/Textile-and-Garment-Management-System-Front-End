@@ -1,68 +1,86 @@
 <div class="banner">
   <app-navbar></app-navbar>
-  <form #userForm="ngForm">
-  <div class="form">
-    <div>
+
+  <form #userForm="ngForm" (ngSubmit)="addCustomer(userForm)" novalidate>
+    <div class="form">
+
       <input
         type="text"
         class="form-control"
-        [(ngModel)]="customer.customerFirstName"
         name="customerFirstName"
+        [(ngModel)]="customer.customerFirstName"
         placeholder="Enter First Name"
         required
+        #firstRef="ngModel"
       />
-    </div>
+      <div class="error" *ngIf="(firstRef.invalid && firstRef.touched) || (userForm.submitted && firstRef.invalid)">
+        First name is required.
+      </div>
 
-    <div>
       <input
         type="text"
         class="form-control"
-        [(ngModel)]="customer.customerLastName"
         name="customerLastName"
-        placeholder="Enter Laste Name"
+        [(ngModel)]="customer.customerLastName"
+        placeholder="Enter Last Name"
         required
+        #lastRef="ngModel"
       />
-    </div>
-    <div>
+      <div class="error" *ngIf="(lastRef.invalid && lastRef.touched) || (userForm.submitted && lastRef.invalid)">
+        Last name is required.
+      </div>
+
       <input
         type="text"
         class="form-control"
-        [(ngModel)]="customer.customerAddress"
         name="customerAddress"
+        [(ngModel)]="customer.customerAddress"
         placeholder="Enter Address"
         required
+        #addressRef="ngModel"
       />
-    </div>
+      <div class="error" *ngIf="(addressRef.invalid && addressRef.touched) || (userForm.submitted && addressRef.invalid)">
+        Address is required.
+      </div>
 
-    <div>
       <input
-        type="text"
+        type="email"
         class="form-control"
-        [(ngModel)]="customer.customerEmail"
         name="customerEmail"
+        [(ngModel)]="customer.customerEmail"
         placeholder="Enter Email"
         required
+        pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$"
+        #emailRef="ngModel"
       />
-    </div>
-    <div>
-      <input
-        type="text"
-        class="form-control"
-        [(ngModel)]="customer.customerPhoneNumber"
-        name="customerPhoneNumber"
-        placeholder="Enter Phone Number"
-        required
-      />
-    </div>
-    
+      <div class="error" *ngIf="(emailRef.invalid && emailRef.touched) || (userForm.submitted && emailRef.invalid)">
+        <span *ngIf="emailRef.errors?.['required']">Email is required.</span>
+        <span *ngIf="emailRef.errors?.['pattern']">Enter a valid email address.</span>
+      </div>
 
-    <button
-      type="submit"
-      class="btn btn-primary"
-      (click)="addCustomer(); clearFields()"
-    >
-      Add Customer
-    </button>
-  </div>
-</form>
+      <input
+        type="tel"
+        class="form-control"
+        name="customerPhoneNumber"
+        [(ngModel)]="customer.customerPhoneNumber"
+        placeholder="Enter Phone Number (07XXXXXXXX)"
+        required
+        pattern="^0[0-9]{9}$"
+        minlength="10"
+        maxlength="10"
+        #phoneRef="ngModel"
+      />
+      <div class="error" *ngIf="(phoneRef.invalid && phoneRef.touched) || (userForm.submitted && phoneRef.invalid)">
+        <span *ngIf="phoneRef.errors?.['required']">Phone number is required.</span>
+        <span *ngIf="phoneRef.errors?.['pattern']">
+          Must start with 0 and be 10 digits (e.g., 07XXXXXXXX).
+        </span>
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+        Add Customer
+      </button>
+
+    </div>
+  </form>
 </div>
