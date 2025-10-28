@@ -19,7 +19,6 @@ interface CartItem {
   lineTotal: number;
 }
 
-// Backend ReadyMadeOrder DTO (response)
 interface ReadyMadeOrderDTO {
   readyMadeOrderId: number;
   customerId: number | null;
@@ -59,7 +58,6 @@ export class ShopingCartComponent implements OnInit {
   customerId: number | null = null;
   customerName = '';
 
-  // Strategy state + options
   strategies = [
     { label: 'Flat % Discount', value: 'flatPercent' as const },
     { label: 'Wholesale Tiered',   value: 'wholesaleTiered' as const },
@@ -71,19 +69,17 @@ export class ShopingCartComponent implements OnInit {
   selectedDiscount = 0;
 
   subtotal = 0;
-  discountAmount = 0; // UI preview only for flatPercent
-  total = 0;          // UI preview (server is source of truth)
+  discountAmount = 0; 
+  total = 0;          
 
   constructor(private router: Router, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.load();
 
-    // restore discount choice
     const savedDisc = Number(localStorage.getItem('cart_discount') || '0');
     if (this.discountOptions.includes(savedDisc)) this.selectedDiscount = savedDisc;
 
-    // restore strategy choice
     const savedStrat = localStorage.getItem('cart_pricing_strategy') as
       | 'flatPercent' | 'wholesaleTiered' | 'seasonalPromo' | null;
     if (savedStrat && ['flatPercent','wholesaleTiered','seasonalPromo'].includes(savedStrat)) {
@@ -99,7 +95,6 @@ export class ShopingCartComponent implements OnInit {
     this.recalcTotals();
   }
 
-  // qty controls
   inc(productId: number) {
     const it = this.items.find(i => i.product.id === productId);
     if (!it) return;
@@ -127,7 +122,6 @@ export class ShopingCartComponent implements OnInit {
     this.persist();
   }
 
-  // discount + strategy
   applyDiscount(percent: number) {
     this.selectedDiscount = percent;
     localStorage.setItem('cart_discount', String(percent));
@@ -135,10 +129,9 @@ export class ShopingCartComponent implements OnInit {
   }
   onStrategyChanged() {
     localStorage.setItem('cart_pricing_strategy', this.pricingStrategy);
-    this.recalcTotals(); // preview updates immediately
+    this.recalcTotals(); 
   }
 
-  // CHECKOUT
   checkout() {
     if (!this.customerName.trim()) {
       alert('Please enter customer name before checkout.');
@@ -149,7 +142,7 @@ export class ShopingCartComponent implements OnInit {
       return;
     }
 
-    // Build request payload (server computes authoritative totals via Strategy)
+    // Build request payload 
     const payload: any = {
       customerId: this.customerId,
       customerName: this.customerName,
@@ -162,7 +155,6 @@ export class ShopingCartComponent implements OnInit {
       date: new Date().toISOString(),
       pricingStrategy: this.pricingStrategy
     };
-    // Only send discountPercent for Flat % method
     if (this.pricingStrategy === 'flatPercent') {
       payload.discountPercent = this.selectedDiscount;
     }
@@ -172,7 +164,6 @@ export class ShopingCartComponent implements OnInit {
         next: (res) => {
           console.log('Order saved:', res);
 
-          // Generate Invoice from SERVER response (authoritative totals)
           this.generateInvoicePDFFromResponse(res);
 
           localStorage.removeItem('cart');
@@ -186,7 +177,8 @@ export class ShopingCartComponent implements OnInit {
       });
   }
 
-  // ===== PDF (from server response) =====
+
+
   private generateInvoicePDFFromResponse(res: ReadyMadeOrderDTO) {
     const doc = new jsPDF({ unit: 'pt', format: 'a4' });
     const marginX = 40;
@@ -273,7 +265,7 @@ export class ShopingCartComponent implements OnInit {
     doc.save(fileName);
   }
 
-  // ===== local state helpers =====
+
   private load() {
     try { this.items = JSON.parse(localStorage.getItem('cart') || '[]') as CartItem[]; }
     catch { this.items = []; }
@@ -291,7 +283,6 @@ export class ShopingCartComponent implements OnInit {
       this.discountAmount = this.round2(this.subtotal * (this.selectedDiscount / 100));
       this.total = this.round2(this.subtotal - this.discountAmount);
     } else {
-      // UI preview: backend will compute real discount
       this.discountAmount = 0;
       this.total = this.subtotal;
     }
