@@ -68,7 +68,7 @@
 
 /* Zebra stripes */
 .property-table tr:nth-child(even) td {
-  background-color: #3f4043;
+  background-color: #495fa0;
 }
 
 .property-table tr {
