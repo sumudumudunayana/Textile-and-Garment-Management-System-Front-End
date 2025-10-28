@@ -1,113 +1,160 @@
 <div class="banner">
   <app-navbar></app-navbar>
-  <form #userForm="ngForm">
+
+  <form #userForm="ngForm" (ngSubmit)="addTailoringOrder(userForm)" novalidate>
     <div class="form">
-      <div>
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="tailoringOrder.customerId"
-          name="customerId"
-          placeholder="Enter Customer Id"
-          required
-        />
-      </div>
-      <div>
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="tailoringOrder.customerName"
-          name="customerName"
-          placeholder="Enter Customer Name"
-          required
-        />
+
+      <!-- Customer ID -->
+      <input
+        type="number"
+        class="form-control"
+        name="customerId"
+        [(ngModel)]="tailoringOrder.customerId"
+        placeholder="Enter Customer Id"
+        required
+        min="1"
+        #custIdRef="ngModel"
+      />
+      <div class="error" *ngIf="(custIdRef.invalid && custIdRef.touched) || (userForm.submitted && custIdRef.invalid)">
+        <span *ngIf="custIdRef.errors?.['required']">Customer ID is required.</span>
+        <span *ngIf="custIdRef.errors?.['min']">Customer ID must be a positive number.</span>
       </div>
 
-      <div>
-        <select
-          class="form-control"
-          [(ngModel)]="tailoringOrder.fabricType"
-          name="fabricType"
-          required
-        >
-          <option value="" disabled selected>Select Fabric Type</option>
-          <option value="Cotton">Cotton</option>
-          <option value="Silk">Silk</option>
-          <option value="Wool">Wool</option>
-          <option value="Linen">Linen</option>
-          <option value="Denim">Denim</option>
-        </select>
+      <!-- Customer Name -->
+      <input
+        type="text"
+        class="form-control"
+        name="customerName"
+        [(ngModel)]="tailoringOrder.customerName"
+        placeholder="Enter Customer Name"
+        required
+        minlength="2"
+        #custNameRef="ngModel"
+      />
+      <div class="error" *ngIf="(custNameRef.invalid && custNameRef.touched) || (userForm.submitted && custNameRef.invalid)">
+        <span *ngIf="custNameRef.errors?.['required']">Customer name is required.</span>
+        <span *ngIf="custNameRef.errors?.['minlength']">Customer name looks too short.</span>
       </div>
 
-      <div>
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="tailoringOrder.quantity"
-          name="quantity"
-          placeholder="Enter Quantity you want"
-          required
-        />
+      <!-- Fabric Type -->
+      <select
+        class="form-control"
+        name="fabricType"
+        [(ngModel)]="tailoringOrder.fabricType"
+        (ngModelChange)="recalcTotal()"
+        required
+        #fabricRef="ngModel"
+      >
+        <option value="" disabled>Select Fabric Type</option>
+        <option value="Cotton">Cotton</option>
+        <option value="Silk">Silk</option>
+        <option value="Wool">Wool</option>
+        <option value="Linen">Linen</option>
+        <option value="Denim">Denim</option>
+      </select>
+      <div class="error" *ngIf="(fabricRef.invalid && fabricRef.touched) || (userForm.submitted && fabricRef.invalid)">
+        Please select a fabric type.
       </div>
 
-      <div>
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="tailoringOrder.length"
-          name="length"
-          placeholder="Enter Length"
-          required
-        />
+      <!-- Quantity -->
+      <input
+        type="number"
+        class="form-control"
+        name="quantity"
+        [(ngModel)]="tailoringOrder.quantity"
+        (ngModelChange)="recalcTotal()"
+        placeholder="Enter Quantity you want"
+        required
+        min="1"
+        #qtyRef="ngModel"
+      />
+      <div class="error" *ngIf="(qtyRef.invalid && qtyRef.touched) || (userForm.submitted && qtyRef.invalid)">
+        <span *ngIf="qtyRef.errors?.['required']">Quantity is required.</span>
+        <span *ngIf="qtyRef.errors?.['min']">Quantity must be greater than 0.</span>
       </div>
-      <div>
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="tailoringOrder.width"
-          name="width"
-          placeholder="Enter Width"
-          required
-        />
-      </div>
-      <div>
-        <input
-          type="text"
-          class="form-control"
-          [(ngModel)]="tailoringOrder.description"
-          name="length"
-          placeholder="Enter description"
-          required
-        />
-        </div>
-        <div>
-        <input
-          type="date"
-          class="form-control"
-          [(ngModel)]="tailoringOrder.deliveryDate"
-          name="deliveryDate"
-          placeholder="Enter Delevry Date"
-          required
-        />
-        </div>
-        <div>
-          <select
-            class="form-control"
-            [(ngModel)]="tailoringOrder.status"
-            name="status"
-            required
-          >
-            <option value="" disabled selected>Select status</option>
-            <option value="Completeed">Completeed</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Cancelled">Cancelled</option>
-          </select>
-        </div>
 
+      <!-- Length -->
+      <input
+        type="number"
+        class="form-control"
+        name="length"
+        [(ngModel)]="tailoringOrder.length"
+        placeholder="Enter Length"
+        required
+        min="0.01"
+        step="0.01"
+        #lengthRef="ngModel"
+      />
+      <div class="error" *ngIf="(lengthRef.invalid && lengthRef.touched) || (userForm.submitted && lengthRef.invalid)">
+        <span *ngIf="lengthRef.errors?.['required']">Length is required.</span>
+        <span *ngIf="lengthRef.errors?.['min']">Length must be greater than 0.</span>
+      </div>
+
+      <!-- Width -->
+      <input
+        type="number"
+        class="form-control"
+        name="width"
+        [(ngModel)]="tailoringOrder.width"
+        placeholder="Enter Width"
+        required
+        min="0.01"
+        step="0.01"
+        #widthRef="ngModel"
+      />
+      <div class="error" *ngIf="(widthRef.invalid && widthRef.touched) || (userForm.submitted && widthRef.invalid)">
+        <span *ngIf="widthRef.errors?.['required']">Width is required.</span>
+        <span *ngIf="widthRef.errors?.['min']">Width must be greater than 0.</span>
+      </div>
+
+      <!-- Delivery Date -->
+      <input
+        type="date"
+        class="form-control"
+        name="deliveryDate"
+        [(ngModel)]="tailoringOrder.deliveryDate"
+        required
+        [min]="today"
+        #dateRef="ngModel"
+      />
+      <div class="error" *ngIf="(dateRef.invalid && dateRef.touched) || (userForm.submitted && dateRef.invalid)">
+        <span *ngIf="dateRef.errors?.['required']">Delivery date is required.</span>
+        <span *ngIf="dateRef.errors?.['min']">Delivery date cannot be in the past.</span>
+      </div>
+
+      <!-- Status -->
+      <select
+        class="form-control"
+        name="status"
+        [(ngModel)]="tailoringOrder.status"
+        required
+        #statusRef="ngModel"
+      >
+        <option value="" disabled>Select status</option>
+        <option value="Completed">Completed</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Cancelled">Cancelled</option>
+      </select>
+      <div class="error" *ngIf="(statusRef.invalid && statusRef.touched) || (userForm.submitted && statusRef.invalid)">
+        Please select a status.
+      </div>
+
+      <!-- Total Amount (auto-calculated, read-only) -->
+      <input
+        type="number"
+        class="form-control"
+        name="totalAmount"
+        [(ngModel)]="tailoringOrder.totalAmount"
+        placeholder="Total Amount"
+        readonly
+        step="0.01"
+      />
+
+      <!-- Submit -->
       <button
         type="submit"
         class="btn btn-primary"
-        (click)="addTailoringOrder(); clearFields()"
+        [disabled]="userForm.invalid"
       >
         Add Tailoring Order
       </button>
