@@ -1,106 +1,137 @@
 <div class="banner">
   <app-navbar></app-navbar>
-  <form #userForm="ngForm">
-  <div class="form">
-    <div>
+
+  <form #userForm="ngForm" (ngSubmit)="addUser(userForm)" novalidate>
+    <div class="form">
+
       <input
         type="text"
         class="form-control"
-        [(ngModel)]="user.userName"
         name="userName"
+        [(ngModel)]="user.userName"
         placeholder="Enter Name"
         required
+        minlength="2"
+        #nameRef="ngModel"
       />
-    </div>
+      <div class="error" *ngIf="(nameRef.invalid && nameRef.touched) || (userForm.submitted && nameRef.invalid)">
+        <span *ngIf="nameRef.errors?.['required']">Name is required.</span>
+        <span *ngIf="nameRef.errors?.['minlength']">Name must be at least 2 characters.</span>
+      </div>
 
-    <div>
       <input
         type="text"
         class="form-control"
-        [(ngModel)]="user.userAddress"
         name="userAddress"
-        placeholder="Enter  Address"
+        [(ngModel)]="user.userAddress"
+        placeholder="Enter Address"
         required
+        minlength="5"
+        #addrRef="ngModel"
       />
-    </div>
+      <div class="error" *ngIf="(addrRef.invalid && addrRef.touched) || (userForm.submitted && addrRef.invalid)">
+        <span *ngIf="addrRef.errors?.['required']">Address is required.</span>
+        <span *ngIf="addrRef.errors?.['minlength']">Address looks too short.</span>
+      </div>
 
-    <div>
       <input
-        type="text"
+        type="email"
         class="form-control"
-        [(ngModel)]="user.userEmail"
         name="userEmail"
+        [(ngModel)]="user.userEmail"
         placeholder="Enter Email"
         required
+        pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$"
+        #emailRef="ngModel"
       />
-    </div>
+      <div class="error" *ngIf="(emailRef.invalid && emailRef.touched) || (userForm.submitted && emailRef.invalid)">
+        <span *ngIf="emailRef.errors?.['required']">Email is required.</span>
+        <span *ngIf="emailRef.errors?.['pattern']">Enter a valid email address.</span>
+      </div>
 
-    <div>
       <input
-        type="text"
+        type="tel"
         class="form-control"
-        [(ngModel)]="user.userPhoneNumber"
         name="userPhoneNumber"
-        placeholder="Enter phone number"
+        [(ngModel)]="user.userPhoneNumber"
+        placeholder="Enter phone number (07XXXXXXXX)"
         required
+        pattern="^0[0-9]{9}$"
+        minlength="10"
+        maxlength="10"
+        #phoneRef="ngModel"
       />
-    </div>
-    <div>
+      <div class="error" *ngIf="(phoneRef.invalid && phoneRef.touched) || (userForm.submitted && phoneRef.invalid)">
+        <span *ngIf="phoneRef.errors?.['required']">Phone number is required.</span>
+        <span *ngIf="phoneRef.errors?.['pattern']">Must start with 0 and be 10 digits (e.g., 07XXXXXXXX).</span>
+      </div>
+
       <input
         type="date"
         class="form-control"
-        [(ngModel)]="user.userDate"
         name="userDate"
-        placeholder="Enter Date"
+        [(ngModel)]="user.userDate"
         required
+        [min]="today"
+        #dateRef="ngModel"
       />
-    </div>
-    <div>
-  <select
-    class="form-control"
-    [(ngModel)]="user.userRole"
-    name="userRole"
-    required
-  >
-    <option value="" disabled selected>Select Role</option>
-    <option value="Admin">Admin</option>
-    <option value="Manager">Manager</option>
-    <option value="HR Officer">HR Officer</option>
-    <option value="Sales Rep">Sales Rep</option>
-    <option value="Store Suparvisor">Store Suparvisor</option>
-  </select>
-</div>
+      <div class="error" *ngIf="(dateRef.invalid && dateRef.touched) || (userForm.submitted && dateRef.invalid)">
+        <span *ngIf="dateRef.errors?.['required']">Date is required.</span>
+        <span *ngIf="dateRef.errors?.['min']">Date cannot be in the past.</span>
+      </div>
 
-<div>
+      <select
+        class="form-control"
+        name="userRole"
+        [(ngModel)]="user.userRole"
+        required
+        #roleRef="ngModel"
+      >
+        <option value="" disabled>Select Role</option>
+        <option value="Admin">Admin</option>
+        <option value="Manager">Manager</option>
+        <option value="HR Officer">HR Officer</option>
+        <option value="Sales Rep">Sales Rep</option>
+        <option value="Store Supervisor">Store Supervisor</option>
+      </select>
+      <div class="error" *ngIf="(roleRef.invalid && roleRef.touched) || (userForm.submitted && roleRef.invalid)">
+        Role is required.
+      </div>
+
       <input
         type="text"
         class="form-control"
-        [(ngModel)]="user.userLoginName"
         name="userLoginName"
+        [(ngModel)]="user.userLoginName"
         placeholder="Enter Username"
         required
+        minlength="4"
+        #unameRef="ngModel"
       />
-    </div>
+      <div class="error" *ngIf="(unameRef.invalid && unameRef.touched) || (userForm.submitted && unameRef.invalid)">
+        <span *ngIf="unameRef.errors?.['required']">Username is required.</span>
+        <span *ngIf="unameRef.errors?.['minlength']">Username must be at least 4 characters.</span>
+      </div>
 
-    <div>
       <input
         type="password"
         class="form-control"
-        [(ngModel)]="user.userLoginPassword"
         name="userLoginPassword"
+        [(ngModel)]="user.userLoginPassword"
         placeholder="Enter Password"
         required
+        minlength="6"
+        #pwdRef="ngModel"
       />
-    </div>
-    
+      <div class="error" *ngIf="(pwdRef.invalid && pwdRef.touched) || (userForm.submitted && pwdRef.invalid)">
+        <span *ngIf="pwdRef.errors?.['required']">Password is required.</span>
+        <span *ngIf="pwdRef.errors?.['minlength']">Password must be at least 6 characters.</span>
+      </div>
 
-    <button
-      type="submit"
-      class="btn btn-primary"
-      (click)="addUser(); clearFields()"
-    >
-      Add User
-    </button>
-  </div>
-</form>
+      <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+        Add User
+      </button>
+
+    </div>
+  </form>
 </div>

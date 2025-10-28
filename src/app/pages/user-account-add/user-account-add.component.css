@@ -92,7 +92,6 @@ input[type="radio"] {
   }
 }
 
-/* validation colors */
 .form-control.ng-invalid.ng-touched {
   border-color: #ef5350; 
   background-color: #3b2c2c;
@@ -101,4 +100,16 @@ input[type="radio"] {
 .form-control.ng-valid.ng-touched {
   border-color: #80cbc4; 
   background-color: #2c3b3b;
+}
+
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
