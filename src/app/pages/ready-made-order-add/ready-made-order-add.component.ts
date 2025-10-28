@@ -37,7 +37,6 @@ export class ReadyMadeOrderAddComponent implements OnInit {
   customerId: number | null = null;
   customerName = '';
 
-  // Dropdown data/state
   customers: Customer[] = [];
   selectedCustomerId: number | null = null;
   customersLoading = false;
@@ -72,7 +71,6 @@ export class ReadyMadeOrderAddComponent implements OnInit {
       .get<Customer[]>('http://localhost:8080/customer/get-all')
       .subscribe({
         next: (list) => {
-          // Map full name properly
           this.customers = (list ?? []).map((c) => ({
             id: c.id,
             customerFirstName: c.customerFirstName,
@@ -81,7 +79,6 @@ export class ReadyMadeOrderAddComponent implements OnInit {
 
           this.customersLoading = false;
 
-          // Restore saved customer if available
           const saved = this.readCustomer();
           if (saved && this.customers.some((x) => x.id === saved.id)) {
             this.selectedCustomerId = saved.id;
